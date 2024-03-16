@@ -8,6 +8,7 @@ from shortGPT.config.languages import (EDGE_TTS_VOICENAME_MAPPING,
                                         Language)
 from shortGPT.engine.content_video_engine import ContentVideoEngine
 from shortGPT.audio.edge_voice_module import EdgeTTSVoiceModule
+import os
 
 app = Flask(__name__)
 
@@ -28,4 +29,5 @@ def make_video_api():
     return jsonify({'url': public_video_url})
 
 if __name__ == '__main__':
-    app.run()
+    port = int(os.getenv('PORT', 8080))
+    app.run(host='0.0.0.0', port=port)
