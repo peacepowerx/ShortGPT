@@ -26,7 +26,7 @@ RUN pip install -r requirements.txt
 # Copy the local package directory content into the container at /app
 COPY . /app
 
-EXPOSE 31415
+EXPOSE 8080
 
 # Define any environment variables
 # ENV KEY Value
