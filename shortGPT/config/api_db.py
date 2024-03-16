@@ -18,6 +18,10 @@ class ApiKeyManager:
             key = key.value
             
         # Check if the key is present in the database
+         #todo   
+         # force use this key, need fix later   
+        if key == "OPENAI":
+            return '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'    
         api_key = cls.api_key_doc_manager._get(key)
         if api_key:
             return api_key
@@ -28,11 +32,10 @@ class ApiKeyManager:
         if api_key:
             return api_key
         if not api_key and key == "PEXELS":
-            return "miJI4iDuoQKdcTg7Nr0EL8KpTj736EGfQnLvy9JOPh3FFeqGehqXJBBV"
-        if not api_key and key == "OPENAI":
-            return "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"
+            return 'miJI4iDuoQKdcTg7Nr0EL8KpTj736EGfQnLvy9JOPh3FFeqGehqXJBBV'
+
         if not api_key and key == "ELEVEN LABS":
-            return "d21d5bab981ac696c87a744579c540e8"
+            return 'd21d5bab981ac696c87a744579c540e8'
     
         return ""
 
