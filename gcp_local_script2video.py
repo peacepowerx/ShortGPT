@@ -8,6 +8,11 @@ from shortGPT.engine.content_video_engine import ContentVideoEngine
 from shortGPT.audio.edge_voice_module import EdgeTTSVoiceModule
 from shortGPT.audio.eleven_voice_module import ElevenLabsVoiceModule
 from shortGPT.audio.coqui_voice_module import CoquiVoiceModule
+from gmail import send_email_with_gmail
+import logging
+import threading
+logger = logging.getLogger(__name__)
+
 class VideoUploader:
     @staticmethod
     def upload_to_gcs(bucket_name, source_file_name, destination_blob_name):
@@ -58,6 +63,14 @@ def make_and_upload_video(script, voice_module, isVertical, progress_func):
 
     print(f"Video uploaded to GCS. Public URL: {public_url}")
     return public_url
+
+
+def make_and_upload_video_email(email,script, voice_module, isVertical, progress_func):
+    public_video_url = make_and_upload_video(script, voice_module, isVertical, progress_update)
+    send_email_with_gmail(email, public_video_url)
+    logger.info(f"email sent to : {str(email)}")
+
+
 # 定义一个简单的进度更新函数
 def progress_update(progress, message):
     print(f"Progress: {progress*100}%, Message: {message}")
