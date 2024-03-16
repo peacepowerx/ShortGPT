@@ -6,7 +6,7 @@ from time import sleep, time
 import openai
 import tiktoken
 import yaml
-
+import sys
 from shortGPT.config.api_db import ApiKeyManager
 
 
@@ -73,7 +73,8 @@ def gpt3Turbo_completion(chat_prompt="", system="You are an AI that can give the
     openai.api_key = ApiKeyManager.get_api_key("OPENAI")
     max_retry = 5
     retry = 0
-    while True:
+    total = 0
+    while total < 5:
         try:
             if conversation:
                 messages = conversation
@@ -99,6 +100,7 @@ def gpt3Turbo_completion(chat_prompt="", system="You are an AI that can give the
         except Exception as oops:
             retry += 1
             if retry >= max_retry:
-                raise Exception("GPT3 error: %s" % oops)
+                # sys.exit(1)
+                raise NotImplementedError("GPT3 error: %s" % oops)             
             print('Error communicating with OpenAI:', oops)
             sleep(1)

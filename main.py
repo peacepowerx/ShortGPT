@@ -9,9 +9,9 @@ from shortGPT.config.languages import (EDGE_TTS_VOICENAME_MAPPING,
 from shortGPT.engine.content_video_engine import ContentVideoEngine
 from shortGPT.audio.edge_voice_module import EdgeTTSVoiceModule
 import os
-
+from shortGPT.config.api_db import ApiKeyManager
 app = Flask(__name__)
-
+api_key_manager = ApiKeyManager()
     # 定义一个简单的进度更新函数
 def progress_update(progress, message):
     print(f"Progress: {progress*100}%, Message: {message}")
@@ -19,7 +19,17 @@ def progress_update(progress, message):
 @app.route('/script2video', methods=['POST'])
 def make_video_api():
     request_json = request.get_json(silent=True)
+    openai_key = request_json.get('openai_key')
+    pexels_key = request_json.get('pexels_key')
+    eleven_key = request_json.get('eleven_key')
+    if (api_key_manager.get_api_key('OPENAI') != openai_key):
+        api_key_manager.set_api_key("OPENAI", openai_key)
+    if (api_key_manager.get_api_key('PEXELS') != pexels_key):
+        api_key_manager.set_api_key("PEXELS", pexels_key)
+    if (api_key_manager.get_api_key('ELEVEN LABS') != eleven_key):
+        api_key_manager.set_api_key("ELEVEN LABS", eleven_key)
     script = request_json.get('script')
+    
     isVertical = request_json.get('isVertical', True)  # 默认为True
     language = Language.ENGLISH
     voice_module = EdgeTTSVoiceModule(EDGE_TTS_VOICENAME_MAPPING[language]['male'])

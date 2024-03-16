@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-ELEVEN_LABS_KEY = os.getenv('ELEVEN_LABS_API_KEY','d21d5bab981ac696c87a744579c540e8')
-OPENAI_KEY = os.getenv('OPENAI_API_KEY','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')
+ELEVEN_LABS_KEY = os.getenv('ELEVEN_LABS_API_KEY')
+OPENAI_KEY = os.getenv('OPENAI_API_KEY')
 PLAY_HT_USERID = os.getenv('PLAY_HT_USERID')
 PLAY_HT_API_KEY = os.getenv('PLAY_HT_API_KEY')
 
