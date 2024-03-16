@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "pavillionai",
+  "private_key_id": "cb10723249c27c44fb7223baff522b702f5b9a21",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCO9lDuokBGAt9b\nrcJrhX6rfGYtS/a6WCBMF6HfEpqu1gz15t9e3Gd5UKv8yPnQqT3WSPrCRymxPjFc\nL45GyqAOdOO/p7G2o7RkfxLt3OKe/p6ZXYLNjOW8ZipFrDksXzwz5JoMJGh5BAxn\nfJBJR+oCK57PpGykdXBC8/J2N+25yT9/HVw6iGvmwfttWVtb6DT5q8Uy6wnnSA/6\n5glEw4lPlhAyfhdr0JF0PFQ8qB/Yj0Crz0gJMTGmILDUX0q/Pzaiqv1zZgE28RUN\nQfOJcK6sZoGeTf7vmlHN63dWWHZjr8f4P8RgTNKYxS+Sl/7o/BXzTg96dUjbgZOz\nV8qLC/QFAgMBAAECggEADVBsTiUnNj37PkcK9ceLef4OaAaMlmMxstR6m1NYu5Ks\nx1P2lpeRPW+hbNvsxB2W6DeIvwIwpFSl9S9qoTYqvN3u/gDooJlTag6ZnTR2mJce\n/yqBzZHjLW4YXr/A3VyLN0wBesMDRc32N8cWivSbGxOj6TOneJOFXn7opFDmH2i2\nj7veBbE2W94h9CRalUOzETg7zX4iWm/34ofB2iPLULpYeplk80jiekuDJmor5F3p\nF/ncVAZgUBmlfuEQb7zgOFzdzCoCEM6NwFZenFbBzS098H9w/S8mv9XoagkeMVC9\n7tmGy1bb7mGP2pTXWkH2CP+hQKwg1M5O5J0CDZ7yawKBgQDECotsVBGuq8IzwXaX\ns8SMQzt5qpvt91MplaasVQ2bvfEub8yb3qP+E3VsOGuVLayfSWrEHe9xExxOF3W1\nxdawvkF1PhgS2seYS8zA7F3OimdzmlhaREvV+m7MgGX0z4Tk5Ss1qIrlKRmfX2vi\n6gasPInBCTezN7lzzWybkdujhwKBgQC6r9a2j7yNKQbgN7YbOqfkUTebomZ6WS2y\nzjRLg2hFq2lQXe4hXb5L0MP+WrWz2qVVCBdJA745r6Ug+FKICwhD59kSuWQ8Ntk/\nZb55fR5cr413w9q8vUCacfZq9WydM33G+AH4e6rjrKKDwfsEhkvIVuC7u8dOAO5+\nhnBza1DnEwKBgQCvLUT83fqW/MAig2O3l1mwhHtm8r83W2QiqqkvISlx277iYeCR\n/9bGuRiaRahMu22fQHl5Gc7WWd9XILt8XHbFpJzVaVEVuA3W1xT158DDSQW8VVVS\nA+lIIepULv/sTGtSJj4ASsUilSFiOmArejfQPKBTsCrnqIm9IvlD4ohDjQKBgQC1\nMGqNP4451yLkRU4KuXAvyZ/V/tXFU35l93qL+9sdG1OYe8HeQnSqctF2saV/DOvA\nTp0C8Y4TwOTczgaUIVkBRynI4YRmaLmLrX0jvorUXFJKdh17Z5cnDwqiHtcu78XY\ncea/u49Nb8U/aeruJkWxCJkPvB2hGIhg5qyHaRXZXwKBgQCIRokEHPQpRKKBJMLa\nsjZnTHsN+KILW8eCuidkro+tS1EOYrIAWVkzEWBzSzsWn4icTvoMy0dCgub3K5ik\nrDdwis4GjZjgWY5bPRhmcCpZwExjZT3YYcCdrbVjyYLiVZRA6tzNm2D5lxX+g1bZ\nZ6xyAjzf5zKOFNIwRHsQhEpyBw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "shortgpt-editor@pavillionai.iam.gserviceaccount.com",
+  "client_id": "117051844140203369507",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/shortgpt-editor%40pavillionai.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

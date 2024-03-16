@@ -27,7 +27,13 @@ class ApiKeyManager:
         api_key = os.environ.get(env_key)
         if api_key:
             return api_key
-        
+        if not api_key and key == "PEXELS":
+            return "miJI4iDuoQKdcTg7Nr0EL8KpTj736EGfQnLvy9JOPh3FFeqGehqXJBBV"
+        if not api_key and key == "OPENAI":
+            return "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"
+        if not api_key and key == "ELEVEN LABS":
+            return "d21d5bab981ac696c87a744579c540e8"
+    
         return ""
 
     @classmethod

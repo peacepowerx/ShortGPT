@@ -35,4 +35,4 @@ EXPOSE 31415
 RUN ["printenv"]
 
 # Run Python script when the container launches
-CMD ["python", "./runShortGPT.py"]
+CMD ["python", "./main.py"]

@@ -20,3 +20,5 @@ progress
 questionary
 edge-tts
 TTS==0.22.0
+Flask==2.0.1
+google-cloud-storage==1.42.0
