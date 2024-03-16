@@ -22,15 +22,15 @@ def make_video_api():
     openai_key = request_json.get('openai_key')
     pexels_key = request_json.get('pexels_key')
     eleven_key = request_json.get('eleven_key')
+    script = request_json.get('script')
+    isVertical = request_json.get('isVertical', True)  # 默认为True
     if (api_key_manager.get_api_key('OPENAI') != openai_key):
         api_key_manager.set_api_key("OPENAI", openai_key)
     if (api_key_manager.get_api_key('PEXELS') != pexels_key):
         api_key_manager.set_api_key("PEXELS", pexels_key)
     if (api_key_manager.get_api_key('ELEVEN LABS') != eleven_key):
         api_key_manager.set_api_key("ELEVEN LABS", eleven_key)
-    script = request_json.get('script')
-    
-    isVertical = request_json.get('isVertical', True)  # 默认为True
+
     language = Language.ENGLISH
     voice_module = EdgeTTSVoiceModule(EDGE_TTS_VOICENAME_MAPPING[language]['male'])
     # 调用您之前定义的make_and_upload_video函数
