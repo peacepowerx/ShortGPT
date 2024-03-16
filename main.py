@@ -22,7 +22,7 @@ def make_video_api():
     openai_key = request_json.get('openai_key')
     pexels_key = request_json.get('pexels_key')
     eleven_key = request_json.get('eleven_key')
-    script = request_json.get('script')
+    script = request_json.get('script',"Welcome video")
     isVertical = request_json.get('isVertical', True)  # 默认为True
     if not all([openai_key, pexels_key, eleven_key, script]):
         return jsonify({"error": "Missing required parameters"}), 400
