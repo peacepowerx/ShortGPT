@@ -23,3 +23,6 @@ TTS==0.22.0
 Flask==3.0.2
 google-cloud-storage==1.42.0
 werkzeug==3.0.1
+pillow_heif
+gtts
+uuid

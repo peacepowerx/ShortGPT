@@ -12,6 +12,7 @@ import os
 from shortGPT.config.api_db import ApiKeyManager
 import logging
 import threading
+from utl_video_editing import storyboard2video_gcp, storyboard2video_gcp_email
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
@@ -77,7 +78,39 @@ def email_video():
     thread.start()
     
     # Immediately return a response
-    return jsonify({"message": "Your video is being processed. You will receive an email once it is ready."})
+    return jsonify({"message": "Your video based on script is being processed. You will receive an email once it is ready."})
+
+
+@app.route('/storyboard2video', methods=['POST'])
+def storyboard2video_api():
+    request_json = request.get_json(silent=True, force=True)
+    logger.info(f"Request args: {str(request_json)}")
+    print(f"Request args: {str(request_json)}")
+    storyboard = request_json.get('storyboard')
+    openai_key = request_json.get('openai_key')
+    if (api_key_manager.get_api_key('OPENAI') != openai_key):
+        api_key_manager.set_api_key("OPENAI", openai_key)
+    public_video_url = storyboard2video_gcp(storyboard)    
+    return jsonify({"url": public_video_url})
+
+@app.route('/storyboard2video_email', methods=['POST'])
+def storyboard2video_email_api():
+    request_json = request.get_json(silent=True, force=True)
+    logger.info(f"Request args: {str(request_json)}")
+    print(f"Request args: {str(request_json)}")
+    email = request_json.get('email')
+    storyboard = request_json.get('storyboard')
+    openai_key = request_json.get('openai_key')
+    if (api_key_manager.get_api_key('OPENAI') != openai_key):
+        api_key_manager.set_api_key("OPENAI", openai_key)
+   
+
+
+    thread = threading.Thread(target=storyboard2video_gcp_email, args=(email,storyboard))
+    thread.start()
+    
+    # Immediately return a response
+    return jsonify({"message": "Your video based on storyboard is being processed. You will receive an email once it is ready."})
 
 
 if __name__ == '__main__':

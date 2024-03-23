@@ -47,7 +47,7 @@ def splitWordsBySize(words, maxCaptionSize):
         captions.append(caption)
     return captions
 
-def getCaptionsWithTime(whisper_analysis, maxCaptionSize=15, considerPunctuation=False):
+def getCaptionsWithTime(whisper_analysis, maxCaptionSize=15, considerPunctuation=True):
     wordLocationToTime = getTimestampMapping(whisper_analysis)
     position = 0
     start_time = 0
