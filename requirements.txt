@@ -26,3 +26,4 @@ werkzeug==3.0.1
 pillow_heif
 gtts
 uuid
+email-validator

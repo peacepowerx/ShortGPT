@@ -13,6 +13,7 @@ from shortGPT.config.api_db import ApiKeyManager
 import logging
 import threading
 from utl_video_editing import storyboard2video_gcp, storyboard2video_gcp_email
+from test_email import is_valid_email
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
@@ -41,7 +42,8 @@ def make_video_api():
         api_key_manager.set_api_key("PEXELS", pexels_key)
     if (api_key_manager.get_api_key('ELEVEN LABS') != eleven_key):
         api_key_manager.set_api_key("ELEVEN LABS", eleven_key)
-
+    if not all([openai_key, pexels_key, eleven_key, script]):
+        return jsonify({"error": "Missing required parameters"}), 400    
     language = Language.ENGLISH
     voice_module = EdgeTTSVoiceModule(EDGE_TTS_VOICENAME_MAPPING[language]['male'])
     # 调用您之前定义的make_and_upload_video函数
@@ -64,6 +66,8 @@ def email_video():
     logger.warn(f"$$$$script$$$$: {str(script)}")
     if not all([email, openai_key, pexels_key, eleven_key, script]):
         return jsonify({"error": "Missing required parameters"}), 400
+    if is_valid_email(email)!= True:
+        return jsonify({"error": "Please Provide a valid email"}), 400
     if (api_key_manager.get_api_key('OPENAI') != openai_key):
         api_key_manager.set_api_key("OPENAI", openai_key)
     if (api_key_manager.get_api_key('PEXELS') != pexels_key):
@@ -88,6 +92,8 @@ def storyboard2video_api():
     print(f"Request args: {str(request_json)}")
     storyboard = request_json.get('storyboard')
     openai_key = request_json.get('openai_key')
+    if not all([storyboard]):
+        return jsonify({"error": "Missing required parameters"}), 400
     if (api_key_manager.get_api_key('OPENAI') != openai_key):
         api_key_manager.set_api_key("OPENAI", openai_key)
     public_video_url = storyboard2video_gcp(storyboard)    
@@ -103,7 +109,10 @@ def storyboard2video_email_api():
     openai_key = request_json.get('openai_key')
     if (api_key_manager.get_api_key('OPENAI') != openai_key):
         api_key_manager.set_api_key("OPENAI", openai_key)
-   
+    if not all([email, storyboard]):
+        return jsonify({"error": "Missing required parameters"}), 400
+    if is_valid_email(email)!= True:
+        return jsonify({"error": "Please Provide a valid email"}), 400
 
 
     thread = threading.Thread(target=storyboard2video_gcp_email, args=(email,storyboard))
