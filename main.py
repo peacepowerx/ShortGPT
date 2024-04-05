@@ -82,7 +82,7 @@ def email_video():
     thread.start()
     
     # Immediately return a response
-    return jsonify({"message": "Your video based on script is being processed. You will receive an email once it is ready."})
+    return jsonify({"message": f"Your video based on the script is being processed. You will receive an email at {email} once it is ready."})
 
 
 @app.route('/storyboard2video', methods=['POST'])
