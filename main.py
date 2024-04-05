@@ -119,8 +119,7 @@ def storyboard2video_email_api():
     thread.start()
     
     # Immediately return a response
-    return jsonify({"message": "Your video based on storyboard is being processed. You will receive an email once it is ready."})
-
+    return jsonify({"message": f"Your video based on the storyboard is being processed. You will receive an email at {email} once it is ready."})
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 8080))
