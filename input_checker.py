@@ -1,4 +1,5 @@
 from email_validator import validate_email, EmailNotValidError
+import requests
 
 def is_valid_email(email_address):
     """
@@ -21,3 +22,10 @@ def is_valid_email(email_address):
 #     print(f"The email address {email} is valid and deliverable.")
 # else:
 #     print(f"The email address {email} is not valid or not deliverable.")
+def is_url_accessible(url):
+    """Check if the given URL is accessible."""
+    try:
+        response = requests.head(url, allow_redirects=True)
+        return response.status_code == 200
+    except requests.RequestException:
+        return False

@@ -89,6 +89,28 @@ def download_file(url, new_filename):
                 f.write(chunk)
     return new_filename
 
+def get_file_type_from_url(url):
+    # Make a HEAD request to get headers without downloading the whole file
+    response = requests.head(url, allow_redirects=True)
+
+    # Extract the Content-Type header
+    content_type = response.headers.get('Content-Type')
+
+    # Map common MIME types to file extensions
+    mime_types_to_extension = {
+        'image/jpeg': 'jpg',
+        'image/png': 'png',
+        'text/html': 'html',
+        'application/pdf': 'pdf',
+        'video/mp4': 'mp4',
+        # Add more mappings as needed
+    }
+
+    # Get the file extension based on the Content-Type
+    file_extension = mime_types_to_extension.get(content_type, 'unknown')
+
+    return file_extension
+
 def resize_with_padding(image_clip, target_size):
     # 计算新尺寸以保持宽高比
     ratio = min(target_size[0] / image_clip.size[0], target_size[1] / image_clip.size[1])
@@ -166,7 +188,7 @@ def process_scene(scene, scene_index, target_format, temp_files):
         text_over_clip = text_over_clip.set_pos(('center', 'bottom'))
 
     for idx, url in enumerate(filenames):
-        file_extension = url.split('.')[-1].split('?')[0]
+        file_extension = get_file_type(url)
         new_filename = f'scene_{scene_index}_file_{idx}.{file_extension}'
         filename = download_file(url, new_filename)
         #clean

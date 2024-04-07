@@ -13,7 +13,7 @@ from shortGPT.config.api_db import ApiKeyManager
 import logging
 import threading
 from utl_video_editing import storyboard2video_gcp, storyboard2video_gcp_email
-from test_email import is_valid_email
+from input_checker import is_valid_email, is_url_accessible
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
@@ -113,6 +113,13 @@ def storyboard2video_email_api():
         return jsonify({"error": "Missing required parameters"}), 400
     if is_valid_email(email)!= True:
         return jsonify({"error": "Please Provide a valid email"}), 400
+    # Extract all filenames from the storyboard and check accessibility
+    filenames = [scene['filename'] for scene in storyboard]
+    inaccessible_urls = [url for url_list in filenames for url in url_list if not is_url_accessible(url)]
+
+    if inaccessible_urls:
+        # Return an error message if any URL is not accessible
+        return jsonify({"error": f"Some resources cannot be accessed: {inaccessible_urls}"}), 400
 
 
     thread = threading.Thread(target=storyboard2video_gcp_email, args=(email,storyboard))
