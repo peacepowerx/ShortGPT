@@ -95,7 +95,7 @@ def get_file_type_from_url(url):
 
     # Extract the Content-Type header
     content_type = response.headers.get('Content-Type')
-
+    print(f"####content_type:{content_type}")
     # Map common MIME types to file extensions
     mime_types_to_extension = {
         'image/jpeg': 'jpg',
@@ -107,7 +107,7 @@ def get_file_type_from_url(url):
     }
 
     # Get the file extension based on the Content-Type
-    file_extension = mime_types_to_extension.get(content_type, 'unknown')
+    file_extension = mime_types_to_extension.get(content_type, 'png')
 
     return file_extension
 
@@ -188,8 +188,10 @@ def process_scene(scene, scene_index, target_format, temp_files):
         text_over_clip = text_over_clip.set_pos(('center', 'bottom'))
 
     for idx, url in enumerate(filenames):
-        file_extension = get_file_type(url)
+        #file_extension = get_file_type(url)
+        file_extension = "png"
         new_filename = f'scene_{scene_index}_file_{idx}.{file_extension}'
+        print(f"NEW filename URL: {new_filename}")
         filename = download_file(url, new_filename)
         #clean
         temp_files.append(filename) 
