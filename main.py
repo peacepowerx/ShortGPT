@@ -115,7 +115,18 @@ def storyboard2video_email_api():
         return jsonify({"error": "Please Provide a valid email"}), 400
     # Extract all filenames from the storyboard and check accessibility
     filenames = [scene['filename'] for scene in storyboard]
-    inaccessible_urls = [url for url_list in filenames for url in url_list if not is_url_accessible(url)]
+    # List to hold inaccessible URLs
+    inaccessible_urls = []
+
+    # Iterate over filenames, accommodating both strings and lists
+    for filename in filenames:
+        if isinstance(filename, list):
+            # Handle the case where filename is a list of URLs
+            inaccessible_urls.extend([url for url in filename if not is_url_accessible(url)])
+        elif isinstance(filename, str):
+            # Handle the case where filename is a single URL string
+            if not is_url_accessible(filename):
+                inaccessible_urls.append(filename)
 
     if inaccessible_urls:
         # Return an error message if any URL is not accessible
