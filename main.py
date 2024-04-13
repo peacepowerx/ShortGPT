@@ -22,6 +22,26 @@ api_key_manager = ApiKeyManager()
 def progress_update(progress, message):
     print(f"Progress: {progress*100}%, Message: {message}")
 
+def correct_urls_in_storyboard(storyboard):
+    """
+    遍历storyboard中的每个场景，纠正filename列表中所有URL的格式错误。
+    Args:
+        storyboard (list of dict): 包含场景信息，每个场景包括至少一个filename URL。
+
+    Returns:
+        None: 直接修改传入的storyboard列表中的元素。
+    """
+    for scene in storyboard:
+        if 'filename' in scene:
+            original_filenames = scene['filename']
+            corrected_filenames = []
+            for url in original_filenames:
+                corrected_url = url.replace("\\u0026", "&")
+                if url != corrected_url:
+                    logger.info(f"Corrected URL from {url} to {corrected_url}")
+                corrected_filenames.append(corrected_url)
+            scene['filename'] = corrected_filenames    
+
 # TODO: 参考openai和gemni的格式，用content，parts来规范输入
 @app.route('/script2video', methods=['POST'])
 def make_video_api():
@@ -106,6 +126,8 @@ def storyboard2video_email_api():
     print(f"Request args: {str(request_json)}")
     email = request_json.get('email')
     storyboard = request_json.get('storyboard')
+    # temp fix
+    correct_urls_in_storyboard(storyboard)
     openai_key = request_json.get('openai_key')
     if (api_key_manager.get_api_key('OPENAI') != openai_key):
         api_key_manager.set_api_key("OPENAI", openai_key)
