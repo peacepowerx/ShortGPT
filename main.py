@@ -24,23 +24,37 @@ def progress_update(progress, message):
 
 def correct_urls_in_storyboard(storyboard):
     """
-    遍历storyboard中的每个场景，纠正filename列表中所有URL的格式错误。
+    Traverses each scene in the storyboard to correct malformed URLs in the filename(s).
+    Handles both cases where a filename is a single URL string or a list of URLs.
+    
     Args:
-        storyboard (list of dict): 包含场景信息，每个场景包括至少一个filename URL。
+        storyboard (list of dict): Each scene contains at least one 'filename' which can be a URL or a list of URLs.
 
     Returns:
-        None: 直接修改传入的storyboard列表中的元素。
+        None: Modifies the storyboard list's elements in place.
     """
+    import logging
+    logger = logging.getLogger(__name__)
+
     for scene in storyboard:
         if 'filename' in scene:
-            original_filenames = scene['filename']
-            corrected_filenames = []
-            for url in original_filenames:
-                corrected_url = url.replace("\\u0026", "&")
-                if url != corrected_url:
-                    logger.info(f"Corrected URL from {url} to {corrected_url}")
-                corrected_filenames.append(corrected_url)
-            scene['filename'] = corrected_filenames    
+            filenames = scene['filename']
+            if isinstance(filenames, list):
+                # Handle the case where filename is a list of URLs
+                corrected_filenames = []
+                for url in filenames:
+                    corrected_url = url.replace("\\u0026", "&")
+                    if url != corrected_url:
+                        logger.info(f"Corrected URL from {url} to {corrected_url}")
+                    corrected_filenames.append(corrected_url)
+                scene['filename'] = corrected_filenames
+            elif isinstance(filenames, str):
+                # Handle the case where filename is a single URL string
+                corrected_url = filenames.replace("\\u0026", "&")
+                if filenames != corrected_url:
+                    logger.info(f"Corrected URL from {filenames} to {corrected_url}")
+                scene['filename'] = corrected_url
+
 
 # TODO: 参考openai和gemni的格式，用content，parts来规范输入
 @app.route('/script2video', methods=['POST'])
