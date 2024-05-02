@@ -46,6 +46,7 @@ def correct_urls_in_storyboard(storyboard):
                     corrected_url = url.replace("\\u0026", "&")
                     if url != corrected_url:
                         logger.info(f"Corrected URL from {url} to {corrected_url}")
+                        print(f"Corrected URL from {url} to {corrected_url}")
                     corrected_filenames.append(corrected_url)
                 scene['filename'] = corrected_filenames
             elif isinstance(filenames, str):
@@ -140,6 +141,7 @@ def storyboard2video_email_api():
     print(f"Request args: {str(request_json)}")
     email = request_json.get('email')
     storyboard = request_json.get('storyboard')
+    print(f"storyboard  args: {str(storyboard )}")
     # temp fix
     correct_urls_in_storyboard(storyboard)
     openai_key = request_json.get('openai_key')
@@ -150,23 +152,23 @@ def storyboard2video_email_api():
     if is_valid_email(email)!= True:
         return jsonify({"error": "Please Provide a valid email"}), 400
     # Extract all filenames from the storyboard and check accessibility
-    filenames = [scene['filename'] for scene in storyboard]
-    # List to hold inaccessible URLs
-    inaccessible_urls = []
+    # filenames = [scene['filename'] for scene in storyboard]
+    # # List to hold inaccessible URLs
+    # inaccessible_urls = []
 
     # Iterate over filenames, accommodating both strings and lists
-    for filename in filenames:
-        if isinstance(filename, list):
-            # Handle the case where filename is a list of URLs
-            inaccessible_urls.extend([url for url in filename if not is_url_accessible(url)])
-        elif isinstance(filename, str):
-            # Handle the case where filename is a single URL string
-            if not is_url_accessible(filename):
-                inaccessible_urls.append(filename)
+    # for filename in filenames:
+    #     if isinstance(filename, list):
+    #         # Handle the case where filename is a list of URLs
+    #         inaccessible_urls.extend([url for url in filename if not is_url_accessible(url)])
+    #     elif isinstance(filename, str):
+    #         # Handle the case where filename is a single URL string
+    #         if not is_url_accessible(filename):
+    #             inaccessible_urls.append(filename)
 
-    if inaccessible_urls:
-        # Return an error message if any URL is not accessible
-        return jsonify({"error": f"Some resources cannot be accessed: {inaccessible_urls}"}), 400
+    # if inaccessible_urls:
+    #     # Return an error message if any URL is not accessible
+    #     return jsonify({"error": f"Some resources cannot be accessed: {inaccessible_urls}"}), 400
 
 
     thread = threading.Thread(target=storyboard2video_gcp_email, args=(email,storyboard))
